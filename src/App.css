@@ -31,3 +31,71 @@
     transform: rotate(360deg);
   }
 }
+
+* {box-sizing: border-box;}
+
+header {
+    background-color: peachpuff;
+    padding: 20px 10px;
+}
+
+footer {
+    background-color: peachpuff;
+    padding: 20px 10px;
+
+}
+
+header a {
+    color: white;
+}
+
+.header-right {
+    float: right;
+}
+
+#item-list-container {
+    overflow: hidden;
+}
+
+.item-container {
+    width: 200px;
+    height: 300px;
+    background-color: antiquewhite;
+    overflow: hidden;
+    float: left;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.item-container img {
+    width: 100%;
+    height: 200px;
+    padding: 10px;
+    margin: 0;
+}
+
+.item-container p {
+    display: block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100%;
+    height: 60px;
+    padding: 0 10px 10px 10px;
+    margin: 0;
+}
+
+.item-image-container {
+    height: 300px;
+    overflow: hidden;
+}
+
+.item-image-container img {
+    height: 100%;
+    width: 50%;
+    object-fit: contain;
+}
+
+.item-detail-container {
+    margin: 20px;
+}
