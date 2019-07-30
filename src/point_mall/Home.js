@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import ItemBox from './ItemBox';
 
 class Home extends React.Component {
 
@@ -28,11 +29,7 @@ class Home extends React.Component {
     render() {
         const items = this.state.items.map((item) => {
             return (
-                <div key={item.id} className="item-container">
-                    <img src={item.image} alt="" />
-                    <p className="item-title">{item.title}</p>
-                    <p className="item-price">가격: {item.price} P</p>
-                </div>
+                <ItemBox key={item.id} item={item}/>
             )
         });
         return (

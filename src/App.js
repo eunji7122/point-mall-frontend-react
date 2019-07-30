@@ -7,6 +7,7 @@ import Login from './point_mall/Login';
 import Header from './point_mall/Header';
 import Footer from './point_mall/Footer';
 import ItemDetail from './point_mall/ItemDetail';
+import MyItems from './point_mall/MyItems';
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
-          <Route exact path="/items/:itemID" component={ItemDetail} />
+          <Route exact path="/items/:itemId" component={ItemDetail} />
+          <Route exact path="/me/items" component={MyItems} />
         </Switch>
         <Footer />
       </div>
