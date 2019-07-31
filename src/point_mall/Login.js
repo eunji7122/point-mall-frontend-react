@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 
 class Login extends React.Component {
@@ -25,9 +26,21 @@ class Login extends React.Component {
     }
 
     login = () => {
-        const authorization = 'Basic ' + btoa(this.state.username + ":" + this.state.password);
-        localStorage.setItem('authorization', authorization);
-        this.props.history.push('/');
+        axios.post(
+            'http://localhost:8000/o/token/',
+            {
+                grant_type: "password",
+                client_id: "gAIXnRE0R85jHigVlKgolkWOxdA67CbcaGQaK0c7",
+                username: this.state.username,
+                password: this.state.password
+            }).then((response) => {
+                console.log(response);
+                const token = response.data;
+                localStorage.setItem('authorization', token.token_type + ' ' + token.access_token);
+            });
+        // const authorization = 'Basic ' + btoa(this.state.username + ":" + this.state.password);
+        // localStorage.setItem('authorization', authorization);
+        // this.props.history.push('/');
     }
 
     render() {
