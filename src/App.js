@@ -8,6 +8,7 @@ import Header from './point_mall/Header';
 import Footer from './point_mall/Footer';
 import ItemDetail from './point_mall/ItemDetail';
 import MyItems from './point_mall/MyItems';
+import CategoryItems from './point_mall/CategoryItems';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route exact path="/login" component={Login} />
           <Route exact path="/items/:itemId" component={ItemDetail} />
           <Route exact path="/me/items" component={MyItems} />
+          <Route exact path="/categories/:categoryId" component={CategoryItems} />
         </Switch>
         <Footer />
       </div>

@@ -2,7 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import ItemBox from './ItemBox';
 
-class Home extends React.Component {
+
+class CategoryItems extends React.Component {
 
     constructor(props) {
         super(props);
@@ -15,21 +16,28 @@ class Home extends React.Component {
         this.indexItems();
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.match.params.categoryId !== prevProps.match.params.categoryId) {
+            this.indexItems();
+        }
+    }
+
     indexItems() {
-        axios.get('http://localhost:8000/items/')
+        const categoryId = this.props.match.params.categoryId;
+        axios.get('http://localhost:8000/categories/' + categoryId + '/items/')
             .then((response) => {
                 const items = response.data;
                 this.setState({
                     items: items
                 })
             });
-        
+
     }
 
     render() {
         const items = this.state.items.map((item) => {
             return (
-                <ItemBox key={item.id} item={item}/>
+                <ItemBox key={item.id} item={item} />
             )
         });
         return (
@@ -42,4 +50,4 @@ class Home extends React.Component {
     }
 }
 
-export default Home;
+export default CategoryItems;

@@ -62,7 +62,7 @@ class MyItems extends React.Component {
         return (
             <div id="container">
                 <h1>내 아이템 목록</h1>
-                <h2>잔고 : {point}</h2>
+                <h2>잔고 : {point} P</h2>
                 <div id="item-list-container">
                     {items}
                 </div>

@@ -37,10 +37,11 @@ class Login extends React.Component {
                 console.log(response);
                 const token = response.data;
                 localStorage.setItem('authorization', token.token_type + ' ' + token.access_token);
+                this.props.history.push('/');
             });
         // const authorization = 'Basic ' + btoa(this.state.username + ":" + this.state.password);
         // localStorage.setItem('authorization', authorization);
-        // this.props.history.push('/');
+        // 
     }
 
     render() {

@@ -22,7 +22,7 @@ class ItemBox extends React.Component {
                 <p className="item-title">{item.title}</p>
                 <p className="item-price">
                     {count == null ?
-                        '가격: ' + item.price :
+                        '가격: ' + item.price + ' P':
                         '개수: ' + count}
                 </p>
             </div>
