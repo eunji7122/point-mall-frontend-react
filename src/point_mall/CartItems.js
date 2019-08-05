@@ -32,36 +32,29 @@ class CartItems extends React.Component {
     }
 
     purchase = () => {
-        const itemsQueue = [];
+        const items = [];
         for (let cartItem of this.state.cartItems) {
-            for (let i = 0; i < cartItem.count; i++) {
-                itemsQueue.push(cartItem.item.id);
-            }
+            items.push({
+                item_id: cartItem.item.id,
+                count: cartItem.count
+            })
         }
-        this.purchaseNextItem(itemsQueue);
-    }
-
-    purchaseNextItem(itemsQueue) {
-        if (itemsQueue.length < 1) {
-            localStorage.setItem('cart_items', '[]');
-            this.props.history.push('/me/items');
-        } else {
-            const itemId = itemsQueue.shift();
-
-            axios.post(
-                'http://localhost:8000/items/' + itemId + '/purchase/',
-                {},
-                {
-                    headers: {
-                        'Authorization': localStorage.getItem('authorization')
-                    }
+        axios.post(
+            'http://localhost:8000/items/purchase/',
+            {
+                items,
+            },
+            {
+                headers: {
+                    'Authorization': localStorage.getItem('authorization')
                 }
-            ).then((response) => {
-                this.purchaseNextItem(itemsQueue);
-            });
-        }
-        
+            }
+        ).then((response) => {
+            localStorage.removeItem('cart_items');
+            this.props.history.push('/me/items');
+        });
     }
+
 
     render() {
         const items = this.state.cartItems.map((cartItems) => {
