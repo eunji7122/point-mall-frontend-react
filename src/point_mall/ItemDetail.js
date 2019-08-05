@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import DataHelper from '../DataHelper';
+
 
 class ItemDetail extends React.Component {
 
@@ -16,7 +18,7 @@ class ItemDetail extends React.Component {
 
     getItem = () => {
         const itemId = this.props.match.params.itemId;
-        axios.get('http://localhost:8000/items/' + itemId)
+        axios.get(DataHelper.baseURL() + '/items/' + itemId)
             .then((response) => {
                 console.log(response.data);
                 const item = response.data;
@@ -29,11 +31,11 @@ class ItemDetail extends React.Component {
     purchase = () => {
         const itemId = this.state.item.id;
         axios.post(
-            'http://localhost:8000/items/' + itemId + '/purchase/',
+            DataHelper.baseURL() + '/items/' + itemId + '/purchase/',
             {},
             {
                 headers: {
-                    'Authorization': localStorage.getItem('authorization')
+                    'Authorization': DataHelper.getAuthToken()
                 }
             }
         ).then((response) => {

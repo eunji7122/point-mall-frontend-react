@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import DataHelper from '../DataHelper';
+
 
 
 class Header extends React.Component {
@@ -17,7 +19,7 @@ class Header extends React.Component {
     }
 
     indexCategories() {
-        axios.get('http://localhost:8000/categories/')
+        axios.get(DataHelper.baseURL() + '/categories/')
             .then((response) => {
                 const categories = response.data;
                 this.setState({
