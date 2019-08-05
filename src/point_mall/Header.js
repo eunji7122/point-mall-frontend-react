@@ -39,14 +39,13 @@ class Header extends React.Component {
                 {categories}
                 <a href=""></a>
                 <div className="header-right">
+                    <Link to="/cart/items">장바구니</Link>
                     <Link to="/me/items">My Items</Link>
-                <Link to="/login">Login</Link>
+                    <Link to="/login">Login</Link>
                 </div>
             </header>
         );
     }
 }
-
-
 
 export default Header;
