@@ -1,3 +1,17 @@
+# Point Mall 실습 React 프로젝트
+
+Point Mall Frontend Project
+
+## 환경설정
+```
+npm install
+```
+
+### 서버 실행
+```
+npm start
+```
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
