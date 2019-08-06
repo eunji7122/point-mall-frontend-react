@@ -55,7 +55,7 @@ class ItemDetail extends React.Component {
 
         let isAdded = false;
         for (let cartItem of cartItems) {
-            if (cartItem.item.id == item.id) {
+            if (cartItem.item.id === item.id) {
                 cartItem.count++;
                 isAdded = true;
                 break;

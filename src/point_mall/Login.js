@@ -9,8 +9,8 @@ class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: '',
-            password: ''
+            username: 'admin',
+            password: 'admin',
         };
     }
 
@@ -36,7 +36,6 @@ class Login extends React.Component {
                 username: this.state.username,
                 password: this.state.password
             }).then((response) => {
-                console.log(response);
                 const token = response.data;
                 DataHelper.setAuthToken(token);
                 this.props.history.push('/');

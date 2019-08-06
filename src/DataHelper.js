@@ -1,10 +1,10 @@
-import { decorate, observable } from 'mobx';
+import { observable ,computed } from 'mobx';
 
 let instance;
 
 class DataHelper {
 
-    authToken = '';
+    @observable authToken = null;
 
     constructor() {
         if (instance) return instance;
@@ -27,6 +27,17 @@ class DataHelper {
         return this.authToken;
     }
 
+    deleteToken() {
+        localStorage.removeItem('auth_token');
+        this.authToken = null;
+    }
+
+    @computed
+    get isLoggedIn() {
+        return this.authToken != null || localStorage.getItem('auth_token') != null;
+
+    }
+
     static baseURL() {
         const dataHelper = new DataHelper();
         return dataHelper.baseURL();
@@ -43,12 +54,5 @@ class DataHelper {
     }
 
 }
-
-const helper = new DataHelper();
-
-decorate(DataHelper, {
-    authToken: observable
-});
-
 
 export default DataHelper;
