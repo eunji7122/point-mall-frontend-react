@@ -35,6 +35,11 @@ class CartItems extends React.Component {
         });
     }
 
+    clearItems = () => {
+        const { itemStore }  = this.props;
+        itemStore.clearCartItems();
+    }
+
 
     render() {
         const { itemStore } = this.props;
@@ -51,6 +56,7 @@ class CartItems extends React.Component {
             <div id="container">
                 <h1>장바구니</h1>
                 <button onClick={this.purchase}>모두구입</button>
+                <button onClick={this.clearItems}>비우기</button>
                 <div id="item-list-container">
                     {items}
                 </div>

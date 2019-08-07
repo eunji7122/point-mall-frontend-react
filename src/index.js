@@ -4,14 +4,12 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'mobx-react';
-import AuthStore from './AuthStore';
-import ItemStore from './ItemStore';
+import RootStore from './RootStore';
 
-const authStore = new AuthStore();
-const itemStore = new ItemStore();
+const rootStore = new RootStore();
 
 ReactDOM.render(
-    <Provider authStore={authStore} itemStore={itemStore}>
+    <Provider authStore={rootStore.authStore} itemStore={rootStore.itemStore}>
         <App />
     </Provider>, 
     document.getElementById('root')
