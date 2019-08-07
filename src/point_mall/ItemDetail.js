@@ -1,10 +1,11 @@
 import React from 'react';
 import axios from 'axios';
+import { withRouter } from 'react-router-dom';
 import DataHelper from '../DataHelper';
 import { inject } from 'mobx-react';
 
 
-@inject('authStore')
+@inject('authStore', 'itemStore')
 class ItemDetail extends React.Component {
 
     constructor(props) {
@@ -22,7 +23,6 @@ class ItemDetail extends React.Component {
         const itemId = this.props.match.params.itemId;
         axios.get(DataHelper.baseURL() + '/items/' + itemId)
             .then((response) => {
-                console.log(response.data);
                 const item = response.data;
                 this.setState({
                     item: item
@@ -47,32 +47,9 @@ class ItemDetail extends React.Component {
     }
 
     addToCart = () => {
+        const { itemStore } = this.props;
         const item = this.state.item;
-        let cartItems = localStorage.getItem('cart_items');
-
-        if (cartItems == null || cartItems.length < 1) {
-            cartItems = [];
-        } else {
-            cartItems = JSON.parse(cartItems);
-        }
-
-        let isAdded = false;
-        for (let cartItem of cartItems) {
-            if (cartItem.item.id === item.id) {
-                cartItem.count++;
-                isAdded = true;
-                break;
-            }
-        }
-        
-        if(!isAdded) {
-            cartItems.push({
-                item: item,
-                count: 1
-            });
-        }
-
-        localStorage.setItem('cart_items', JSON.stringify(cartItems));
+        itemStore.addItemToCart(item);
     }
 
     render() {
@@ -101,4 +78,4 @@ class ItemDetail extends React.Component {
     }
 }
 
-export default ItemDetail;
+export default withRouter(ItemDetail);
