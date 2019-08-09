@@ -2,11 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import DataHelper from '../DataHelper';
-import { inject } from 'mobx-react';
 
 
-@inject('authStore')
-class Login extends React.Component {
+class Register extends React.Component {
 
     constructor(props) {
         super(props);
@@ -29,29 +27,23 @@ class Login extends React.Component {
         }
     }
 
-    login = () => {
+    register = () => {
         axios.post(
-            DataHelper.baseURL() + '/o/token/',
+            DataHelper.baseURL() + '/users/',
             {
-                grant_type: "password",
-                client_id: "gAIXnRE0R85jHigVlKgolkWOxdA67CbcaGQaK0c7",
                 username: this.state.username,
                 password: this.state.password
             }).then((response) => {
-                const token = response.data;
-                const { authStore, history } = this.props;
-                authStore.setToken(token);
-                this.props.history.push('/');
+                const { history } = this.props;
+                history.push('/login');
             });
-        // const authorization = 'Basic ' + btoa(this.state.username + ":" + this.state.password);
-        // localStorage.setItem('authorization', authorization);
-        // 
     }
+
 
     render() {
         return (
             <div>
-                <div>
+                <div id="container">
                     <p>
                         <label>아이디: </label>
                         <input type="text" value={this.state.username}
@@ -64,11 +56,11 @@ class Login extends React.Component {
                             onChange={this.onInputChanged}
                             name="password" />
                     </p>
-                    <button onClick={this.login}>로그인</button>
+                    <button onClick={this.register}>회원가입</button>
                 </div>
             </div>
-        );
+        )
     }
 }
 
-export default withRouter(Login);
+export default withRouter(Register);
