@@ -35,6 +35,7 @@ class Register extends React.Component {
                 password: this.state.password
             }).then((response) => {
                 const { history } = this.props;
+                alert('회원가입에 성공하였습니다. 다시 로그인해 주세요.')
                 history.push('/login');
             });
     }
