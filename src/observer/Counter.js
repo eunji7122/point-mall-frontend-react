@@ -2,6 +2,7 @@ export default class Counter {
 
     constructor() {
         this._observers = [];
+        this._reactionSubscribers = [];
         this._count = 0;
     }
 
@@ -19,5 +20,16 @@ export default class Counter {
         for (let observer of this._observers) {
             observer.forceUpdate();
         }
+        // const subscriber = function (value) {
+        //     console.log('reaction : ' + value);
+        // };
+        // subscriber(this.count);
+        for (let subscriber of this._reactionSubscribers) {
+            subscriber(this.count);
+        }
+    }
+
+    reaction(func) {
+        this._reactionSubscribers.push(func);
     }
 }

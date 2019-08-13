@@ -12,6 +12,7 @@ import CategoryItems from './point_mall/CategoryItems';
 import CartItems from './point_mall/CartItems';
 import ObserverTest from './observer/ObserverTest';
 import Register from './point_mall/Register';
+import PromiseTest from './promise/PromiseTest';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route exact path="/categories/:categoryId" component={CategoryItems} />
           <Route exact path="/cart/items" component={CartItems} />
           <Route exact path="/observer-test" component={ObserverTest} />
+          <Route exact path="/promise-test" component={PromiseTest} />
         </Switch>
         <Footer />
       </div>

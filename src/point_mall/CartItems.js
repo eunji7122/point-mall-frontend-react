@@ -1,38 +1,27 @@
 import React from 'react';
-import axios from 'axios';
 import ItemBox from './ItemBox';
 import { withRouter } from 'react-router-dom';
-import DataHelper from '../DataHelper';
 import { inject, observer } from 'mobx-react';
 
 
-@inject('authStore', 'itemStore')
+@inject('itemStore', 'httpService')
 @observer
 class CartItems extends React.Component {
 
     purchase = () => {
         const items = [];
-        const { authStore, itemStore } = this.props;
+        const { itemStore } = this.props;
         for (let cartItem of itemStore.cartItems) {
             items.push({
                 item_id: cartItem.item.id,
                 count: cartItem.count
             })
         }
-        axios.post(
-            DataHelper.baseURL() + '/items/purchase/',
-            {
-                items,
-            },
-            {
-                headers: {
-                    'Authorization': authStore.authToken
-                }
-            }
-        ).then((response) => {
-            itemStore.clearCartItems();
-            this.props.history.push('/me/items');
-        });
+        this.props.httpService.purchaseItems(items)
+            .then(userItems => {
+                itemStore.clearCartItems();
+                this.props.history.push('/me/items');
+            });
     }
 
     clearItems = () => {

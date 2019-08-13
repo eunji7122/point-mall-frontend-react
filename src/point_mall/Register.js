@@ -1,9 +1,9 @@
 import React from 'react';
-import axios from 'axios';
 import { withRouter } from 'react-router-dom';
-import DataHelper from '../DataHelper';
+import { inject } from 'mobx-react';
 
 
+@inject('httpService')
 class Register extends React.Component {
 
     constructor(props) {
@@ -28,12 +28,10 @@ class Register extends React.Component {
     }
 
     register = () => {
-        axios.post(
-            DataHelper.baseURL() + '/users/',
-            {
-                username: this.state.username,
-                password: this.state.password
-            }).then((response) => {
+        this.props.httpService.register(
+            this.state.username,
+            this.state.password
+        ).then(response => {
                 const { history } = this.props;
                 alert('회원가입에 성공하였습니다. 다시 로그인해 주세요.')
                 history.push('/login');

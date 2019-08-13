@@ -7,6 +7,9 @@ export default class ObserverTest extends React.Component {
         super(props);
         this.counter = new Counter();
         this.counter.addObserver(this);
+        this.counter.reaction(value => {
+            console.log('reaction : ' + value);
+        });
     }
 
     increase = () => {
