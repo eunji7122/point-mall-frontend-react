@@ -9,6 +9,10 @@ export default class HttpService {
 
         this.clientID = 'gAIXnRE0R85jHigVlKgolkWOxdA67CbcaGQaK0c7';
         
+        // refresh 되기를 기다리는 요청 목록을 리스트로 만듦
+        this.refreshSubscribers = [];
+        this.isRefreshingToken = false;
+        
         axios.defaults.baseURL = 'http://localhost:8000';
         axios.defaults.headers.common['Authorization'] = this.authStore.authToken;
 
@@ -26,15 +30,38 @@ export default class HttpService {
                     alert('로그인이 필요한 서비스입니다.');
                     this.rootStore.history.push('/login');
                 } else {
+                    if (!this.isRefreshingToken) {
+                        this.isRefreshingToken = true;
+                        return new Promise((resolve, reject) => {
+                            this.refreshToken().then(token => {
+                                originalRequest.headers.Authorization = this.authStore.authToken;
+                                resolve(axios(originalRequest));
+                                for (let subscriber of this.refreshSubscribers) {
+                                    subscriber(token);
+                                }
+                            }).catch(error => {
+                                this.authStore.deleteToken();
+                                reject(originalError);
+                                alert('로그인이 필요한 서비스입니다.');
+                                this.rootStore.history.push('/login');
+                                for (let subscriber of this.refreshSubscribers) {
+                                    subscriber(null);
+                                }
+                            }).finally(() => {
+                                this.refreshSubscribers = [];
+                                this.isRefreshingToken = false;
+                            });
+                        });
+                    }
+                    
                     return new Promise((resolve, reject) => {
-                        this.refreshToken().then(token => {
-                            originalRequest.headers.Authorization = this.authStore.authToken;
-                            resolve(axios(originalRequest));
-                        }).catch(error => {
-                            this.authStore.deleteToken();
-                            reject(originalError);
-                            alert('로그인이 필요한 서비스입니다.');
-                            this.rootStore.history.push('/login');
+                        this.refreshSubscribers.push(token => {
+                            if (token == null) {
+                                reject(originalError);
+                            } else {    
+                                originalRequest.headers.Authorization = this.authStore.authToken;
+                                resolve(axios(originalRequest));
+                            }
                         });
                     });
                 }
