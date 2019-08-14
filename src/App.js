@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import './App.css';
 
 import Home from './point_mall/Home';
@@ -16,23 +16,21 @@ import PromiseTest from './promise/PromiseTest';
 
 function App() {
   return (
-    <Router>
-      <div>
-        <Header/>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/items/:itemId" component={ItemDetail} />
-          <Route exact path="/me/items" component={MyItems} />
-          <Route exact path="/categories/:categoryId" component={CategoryItems} />
-          <Route exact path="/cart/items" component={CartItems} />
-          <Route exact path="/observer-test" component={ObserverTest} />
-          <Route exact path="/promise-test" component={PromiseTest} />
-        </Switch>
-        <Footer />
-      </div>
-    </Router>
+    <div>
+      <Header/>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/register" component={Register} />
+        <Route exact path="/items/:itemId" component={ItemDetail} />
+        <Route exact path="/me/items" component={MyItems} />
+        <Route exact path="/categories/:categoryId" component={CategoryItems} />
+        <Route exact path="/cart/items" component={CartItems} />
+        <Route exact path="/observer-test" component={ObserverTest} />
+        <Route exact path="/promise-test" component={PromiseTest} />
+      </Switch>
+      <Footer />
+    </div>
   );
 }
 
