@@ -20,6 +20,7 @@ export default class HttpService {
             axios.defaults.headers.common['Authorization'] = this.authStore.authToken;
         });
 
+        // 밑의 메소드들로 이동하기 전에 먼저 데이터를 가공해주고 보내기 위해 interceptor를 사용
         axios.interceptors.response.use(response => {
             return response;
         }, originalError => {
@@ -31,11 +32,21 @@ export default class HttpService {
                     this.rootStore.history.push('/login');
                 } else {
                     if (!this.isRefreshingToken) {
+                        // 예를 들어 토큰이 만료되었을 때, getMe 등이 여러번 실행될 수 있다.
+                        // 여러번 실행되는 것을 막고자 inRefreshingToken을 true로 바꿔주어 한 번만 실행되도록 함
                         this.isRefreshingToken = true;
                         return new Promise((resolve, reject) => {
                             this.refreshToken().then(token => {
                                 originalRequest.headers.Authorization = this.authStore.authToken;
+                                
+                                // 아래 주석 처리된 코드가 48라인과 같은 의미
+                                // axios(originalRequest).then(response => {
+                                //     resolve(response);
+                                // }).catch(error => {
+                                //     reject(error);
+                                // });
                                 resolve(axios(originalRequest));
+                                
                                 for (let subscriber of this.refreshSubscribers) {
                                     subscriber(token);
                                 }
