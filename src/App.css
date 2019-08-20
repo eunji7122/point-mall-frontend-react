@@ -100,3 +100,9 @@ header a {
 .item-detail-container {
     margin: 20px;
 }
+
+.history-container {
+  overflow: hidden;
+  border: 2px solid pink;
+  margin: 20px;
+}
