@@ -14,6 +14,7 @@ import ObserverTest from './observer/ObserverTest';
 import Register from './point_mall/Register';
 import PromiseTest from './promise/PromiseTest';
 import MyHistory from './point_mall/MyHistory';
+import TagItems from './point_mall/TagItems';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route exact path="/cart/items" component={CartItems} />
         <Route exact path="/observer-test" component={ObserverTest} />
         <Route exact path="/promise-test" component={PromiseTest} />
+        <Route exact path="/tags/:tag" component={TagItems} />
       </Switch>
       <Footer />
     </div>

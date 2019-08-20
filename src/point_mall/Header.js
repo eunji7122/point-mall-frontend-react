@@ -3,13 +3,14 @@ import { Link } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 
 
-@inject('itemStore', 'httpService', 'authStore')
+@inject('itemStore', 'httpService', 'authStore', 'history')
 @observer
 class Header extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            searchText: '',
             categories: []
         };
     }
@@ -32,6 +33,19 @@ class Header extends React.Component {
         authStore.deleteToken();
     }
 
+    onInputChanged = (event) => {
+        const target = event.target;
+        if (target.name === 'search') {
+            this.setState({
+                searchText: target.value
+            });
+        }
+    }
+
+    search = () => {
+        this.props.history.push('/tags/' + this.state.searchText);
+    }
+
     render() {
         const { authStore, itemStore } = this.props;
         const categories = this.state.categories.map((category) => {
@@ -44,7 +58,10 @@ class Header extends React.Component {
             <header>
                 <Link to="/">Point Mall</Link>
                 {categories}
+
                 <div className="header-right">
+                    <input value={this.state.searchText} onChange={this.onInputChanged} type="text" name="search"></input>
+                    <button style={{ marginRight: '1em' }} onClick={this.search}>Search</button>
                     <Link to="/cart/items">Cart {itemStore.cartItemsCount}</Link>
                     {
                         authStore.isLoggedIn &&

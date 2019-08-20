@@ -138,6 +138,13 @@ export default class HttpService {
             });
     }
 
+    indexTagItems(tag) {
+        return axios.get('/tags/' + tag + '/items/')
+            .then(response => {
+                return response.data;
+            });
+    }
+
     register(username, password) {
         return axios.post('/users/', {
                 username,
