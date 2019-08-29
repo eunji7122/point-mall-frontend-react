@@ -13,7 +13,7 @@ export default class HttpService {
         this.refreshSubscribers = [];
         this.isRefreshingToken = false;
         
-        axios.defaults.baseURL = 'http://api.pointmall.eunji.co.kr';
+        axios.defaults.baseURL = 'https://api.pointmall.eunji.co.kr';
         axios.defaults.headers.common['Authorization'] = this.authStore.authToken;
 
         reaction(() => this.authStore.authToken, () =>{
