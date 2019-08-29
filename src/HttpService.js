@@ -157,7 +157,7 @@ export default class HttpService {
     login(username, password) {
         return axios.post('/o/token/', {
             grant_type: "password",
-            client_id: "gAIXnRE0R85jHigVlKgolkWOxdA67CbcaGQaK0c7",
+            client_id: this.clientID,
             username,
             password
         }).then(response => {
