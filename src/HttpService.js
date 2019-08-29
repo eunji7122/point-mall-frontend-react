@@ -7,7 +7,7 @@ export default class HttpService {
         this.rootStore  = rootStore;
         this.authStore = rootStore.authStore;
 
-        this.clientID = 'HCr4jR68hZfm4ifkYWKb0xC3WGtdae3ZgKZHMxFj';
+        this.clientID = 'vFLG1I5gGvacqR1mSYxZ4T96HDAesC00P7X6s9UI';
         
         // refresh 되기를 기다리는 요청 목록을 리스트로 만듦
         this.refreshSubscribers = [];
